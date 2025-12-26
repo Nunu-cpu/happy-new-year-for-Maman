@@ -5,13 +5,10 @@ import Link from "next/link";
 import Calendar from "@/components/Calendar";
 
 export default function Home() {
-  // Use state to ensure snowflakes are only rendered on the client to avoid hydration mismatch
   const [snowflakes, setSnowflakes] = useState<Array<{ id: number; left: string; animationDuration: string; animationDelay: string; size: string }>>([]);
-
   const [clouds, setClouds] = useState<Array<{ id: number; left: string; top: string; scale: number; duration: string; delay: string }>>([]);
 
   useEffect(() => {
-    // Generate snowflakes only on client to match hydration
     const flakes = Array.from({ length: 50 }).map((_, i) => ({
       id: i,
       left: `${Math.random() * 100}vw`,
@@ -21,7 +18,6 @@ export default function Home() {
     }));
     setSnowflakes(flakes);
 
-    // Generate clouds
     const cloudElements = Array.from({ length: 6 }).map((_, i) => ({
       id: i,
       left: `${Math.random() * 100}vw`,
@@ -80,7 +76,7 @@ export default function Home() {
       {/* Noise Overlay */}
       <div className="absolute inset-0 grain pointer-events-none z-[60]" />
 
-      {/* Low-contrast Vignette */}
+      {/* Vignette */}
       <div className="absolute inset-0 pointer-events-none z-[61] shadow-[inset_0_0_150px_rgba(0,0,0,0.05)]" />
 
       {/* Floating Clouds */}
@@ -131,17 +127,17 @@ export default function Home() {
           {/* 1. Tree (Left) */}
           <div className="relative group flex flex-col items-center">
             <pre className="text-green-600 font-mono text-xs md:text-sm leading-tight select-none relative">
-              {`      .   +   .  ★  .   +   .
-        .    /\\    .
-     +      /  \\      +
-       .   /o   \\   .
-     +    /  o   \\    +
-       . /    o   \\ .
-     +  /o    o  o \\  +
-       /   o    o   \\
-      /______________\\
-            ||||
-            ||||`}
+              {\`      .   +   .  ★  .   +   .
+              .    /\\    .
+              +      /  \\      +
+              .   /o   \\   .
+              +    /  o   \\    +
+              . /    o   \\ .
+              +  /o    o  o \\  +
+              /   o    o   \\
+              /______________\\
+              ||||
+            ||||\`}
             </pre>
             {/* Sparkles around tree */}
             <div className="absolute inset-0 pointer-events-none text-green-400 opacity-60">
@@ -159,10 +155,10 @@ export default function Home() {
 
           {/* 3. Invitation (Right) */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-2 max-w-[200px]">
-            <h2 className="text-xl md:text-2xl font-playfair font-light tracking-wide text-white/90 drop-shadow-md leading-relaxed">
+            <h2 className="text-xl md:text-2xl font-playfair font-light tracking-wide text-slate-800 drop-shadow-sm leading-relaxed">
               새해 파티에<br />초대합니다! ✨
             </h2>
-            <p className="text-white/40 font-serif text-[11px] tracking-tight uppercase">
+            <p className="text-slate-400 font-serif text-[11px] tracking-tight uppercase">
               Join us in celebration
             </p>
           </div>
@@ -171,7 +167,7 @@ export default function Home() {
         <div className="flex flex-col sm:flex-row gap-4 mt-4">
           <Link
             href="/guestbook"
-            className="px-8 py-3 rounded-full bg-[#d4a373] hover:bg-[#c49363] text-white font-serif border border-white/20 shadow-lg transition-all hover:scale-105 active:scale-95 text-center"
+            className="px-8 py-3 rounded-full bg-slate-800/10 hover:bg-slate-800/20 text-slate-700 font-serif border border-slate-900/10 shadow-sm transition-all hover:scale-105 active:scale-95 text-center backdrop-blur-sm"
           >
             🖋️ 방명록 작성하기
           </Link>
@@ -179,10 +175,10 @@ export default function Home() {
 
         {/* Static decorations */}
         <div className="flex gap-4 text-4xl mt-8">
-          <span className="animate-bounce delay-100 drop-shadow-sm">❄️</span>
-          <span className="animate-bounce delay-300 drop-shadow-sm">🎅</span>
-          <span className="animate-bounce delay-700 drop-shadow-sm">❄️</span>
-          <span className="animate-bounce delay-500 drop-shadow-sm">❄️</span>
+          <span className="animate-bounce delay-100 drop-shadow-sm opacity-60">❄️</span>
+          <span className="animate-bounce delay-300 drop-shadow-sm opacity-60">☁️</span>
+          <span className="animate-bounce delay-700 drop-shadow-sm opacity-60">❄️</span>
+          <span className="animate-bounce delay-500 drop-shadow-sm opacity-60">☁️</span>
         </div>
       </main>
     </div>
