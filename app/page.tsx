@@ -57,6 +57,26 @@ export default function Home() {
       ))}
 
       <main className="flex flex-col items-center text-center gap-6 animate-in fade-in zoom-in duration-1000 z-10">
+        <div className="relative">
+          <h1 className="text-4xl md:text-5xl font-serif font-medium tracking-widest text-[#f0f0f0] drop-shadow-md">
+            Happy new year!
+          </h1>
+        </div>
+
+        <pre className="text-green-600 font-mono text-sm md:text-base leading-tight select-none">
+          {`        ★
+       /\\
+      /  \\
+     /o   \\
+    /  o   \\
+   /    o   \\
+  /o    o  o \\
+ /   o    o   \\
+/______________\\
+      ||||
+      ||||`}
+        </pre>
+
         <Calendar />
 
         <div className="flex flex-col sm:flex-row gap-4 mt-4">
