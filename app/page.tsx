@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import Calendar from "@/components/Calendar";
 
 export default function Home() {
   // Use state to ensure snowflakes are only rendered on the client to avoid hydration mismatch
@@ -57,37 +57,9 @@ export default function Home() {
       ))}
 
       <main className="flex flex-col items-center text-center gap-6 animate-in fade-in zoom-in duration-1000 z-10">
-        <div className="relative">
-          <h1 className="text-4xl md:text-5xl font-serif font-medium tracking-widest text-[#f0f0f0] drop-shadow-md">
-            Happy new year!
-          </h1>
-        </div>
-
-        <p className="text-lg md:text-xl font-light text-white/90 tracking-wide font-serif">
-          선물은 카봇! 🎄
-        </p>
-
-        <pre className="text-green-600 font-mono text-sm md:text-base leading-tight select-none">
-          {`        ★
-       /\\
-      /  \\
-     /o   \\
-    /  o   \\
-   /    o   \\
-  /o    o  o \\
- /   o    o   \\
-/______________\\
-      ||||
-      ||||`}
-        </pre>
+        <Calendar />
 
         <div className="flex flex-col sm:flex-row gap-4 mt-4">
-          <Link
-            href="/calendar"
-            className="px-8 py-3 rounded-full bg-green-800 hover:bg-green-700 text-white font-serif border border-white/20 shadow-lg transition-all hover:scale-105 active:scale-95 text-center"
-          >
-            📅 달력 보기
-          </Link>
           <Link
             href="/guestbook"
             className="px-8 py-3 rounded-full bg-[#d4a373] hover:bg-[#c49363] text-white font-serif border border-white/20 shadow-lg transition-all hover:scale-105 active:scale-95 text-center"
