@@ -81,12 +81,20 @@ export default function Home() {
       ||||`}
         </pre>
 
-        <Link
-          href="/calendar"
-          className="mt-4 px-8 py-3 rounded-full bg-green-800 hover:bg-green-700 text-white font-serif border border-white/20 shadow-lg transition-all hover:scale-105 active:scale-95"
-        >
-          📅 달력 보기
-        </Link>
+        <div className="flex flex-col sm:flex-row gap-4 mt-4">
+          <Link
+            href="/calendar"
+            className="px-8 py-3 rounded-full bg-green-800 hover:bg-green-700 text-white font-serif border border-white/20 shadow-lg transition-all hover:scale-105 active:scale-95 text-center"
+          >
+            📅 달력 보기
+          </Link>
+          <Link
+            href="/guestbook"
+            className="px-8 py-3 rounded-full bg-[#d4a373] hover:bg-[#c49363] text-white font-serif border border-white/20 shadow-lg transition-all hover:scale-105 active:scale-95 text-center"
+          >
+            🖋️ 방명록 작성하기
+          </Link>
+        </div>
 
         {/* Static decorations */}
         <div className="flex gap-4 text-4xl mt-8">
