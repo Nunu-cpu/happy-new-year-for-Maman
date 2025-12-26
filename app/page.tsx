@@ -58,7 +58,7 @@ export default function Home() {
 
       <main className="flex flex-col items-center text-center gap-6 animate-in fade-in zoom-in duration-1000 z-10">
         <div className="relative">
-          <h1 className="text-4xl md:text-5xl font-serif font-medium tracking-widest text-[#f0f0f0] drop-shadow-md">
+          <h1 className="text-5xl md:text-7xl font-dancing-script font-bold tracking-normal text-[#f0f0f0] drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
             Happy new year!
           </h1>
         </div>
