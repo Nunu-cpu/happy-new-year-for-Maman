@@ -8,6 +8,8 @@ export default function Home() {
   // Use state to ensure snowflakes are only rendered on the client to avoid hydration mismatch
   const [snowflakes, setSnowflakes] = useState<Array<{ id: number; left: string; animationDuration: string; animationDelay: string; size: string }>>([]);
 
+  const [clouds, setClouds] = useState<Array<{ id: number; left: string; top: string; scale: number; duration: string; delay: string }>>([]);
+
   useEffect(() => {
     // Generate snowflakes only on client to match hydration
     const flakes = Array.from({ length: 50 }).map((_, i) => ({
@@ -18,31 +20,93 @@ export default function Home() {
       size: `${Math.random() * 8 + 4}px`,
     }));
     setSnowflakes(flakes);
+
+    // Generate clouds
+    const cloudElements = Array.from({ length: 6 }).map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}vw`,
+      top: `${Math.random() * 70}vh`,
+      scale: Math.random() * 1.5 + 0.5,
+      duration: `${Math.random() * 30 + 30}s`,
+      delay: `${Math.random() * -20}s`,
+    }));
+    setClouds(cloudElements);
   }, []);
 
   return (
     <div
       className="flex min-h-screen flex-col items-center justify-center p-4 overflow-hidden relative"
-      style={{ background: 'linear-gradient(135deg, #c73e1d 0%, #d4a373 50%, #e8c4a0 100%)' }}
+      style={{
+        background: 'linear-gradient(to bottom, #bae6fd 0%, #e0f2fe 50%, #f0f9ff 100%)',
+      }}
     >
       <style jsx global>{`
         @keyframes fall {
-          0% {
-            transform: translateY(-10vh) translateX(0);
-            opacity: 1;
-          }
-          100% {
-            transform: translateY(110vh) translateX(20px);
-            opacity: 0.3;
-          }
+          0% { transform: translateY(-10vh) translateX(0); opacity: 1; }
+          100% { transform: translateY(110vh) translateX(20px); opacity: 0.3; }
+        }
+        @keyframes float {
+          0% { transform: translateX(-100vw); }
+          100% { transform: translateX(100vw); }
+        }
+        .grain::after {
+          content: "";
+          position: fixed;
+          top: -150%;
+          left: -150%;
+          width: 300%;
+          height: 300%;
+          background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+          opacity: 0.08;
+          pointer-events: none;
+          z-index: 100;
+          animation: noise 0.2s infinite;
+        }
+        @keyframes noise {
+          0% { transform: translate(0, 0); }
+          10% { transform: translate(-5%, -5%); }
+          20% { transform: translate(-10%, 5%); }
+          30% { transform: translate(5%, -10%); }
+          40% { transform: translate(-5%, 15%); }
+          50% { transform: translate(-10%, 5%); }
+          60% { transform: translate(15%, 0); }
+          70% { transform: translate(0, 10%); }
+          80% { transform: translate(-15%, 0); }
+          90% { transform: translate(10%, 5%); }
+          100% { transform: translate(5%, 0); }
         }
       `}</style>
+
+      {/* Noise Overlay */}
+      <div className="absolute inset-0 grain pointer-events-none z-[60]" />
+
+      {/* Low-contrast Vignette */}
+      <div className="absolute inset-0 pointer-events-none z-[61] shadow-[inset_0_0_150px_rgba(0,0,0,0.05)]" />
+
+      {/* Floating Clouds */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        {clouds.map((cloud) => (
+          <div
+            key={cloud.id}
+            className="absolute bg-white/40 blur-3xl rounded-full"
+            style={{
+              left: cloud.left,
+              top: cloud.top,
+              width: `${200 * cloud.scale}px`,
+              height: `${100 * cloud.scale}px`,
+              animation: `float ${cloud.duration} linear infinite`,
+              animationDelay: cloud.delay,
+              opacity: 0.6,
+            }}
+          />
+        ))}
+      </div>
 
       {/* Snowflakes */}
       {snowflakes.map((flake) => (
         <div
           key={flake.id}
-          className="absolute bg-white rounded-full pointer-events-none opacity-90 shadow-sm"
+          className="absolute bg-white rounded-full pointer-events-none opacity-70 shadow-sm"
           style={{
             left: flake.left,
             top: '-20px',
@@ -58,7 +122,7 @@ export default function Home() {
 
       <main className="flex flex-col items-center text-center gap-12 animate-in fade-in zoom-in duration-1000 z-10 w-full max-w-6xl px-4">
         <div className="relative">
-          <h1 className="text-3xl md:text-4xl font-playfair font-light tracking-[0.2em] text-[#f0f0f0] opacity-90 uppercase">
+          <h1 className="text-3xl md:text-4xl font-playfair font-light tracking-[0.2em] text-slate-700 opacity-90 uppercase">
             Happy new year!
           </h1>
         </div>
