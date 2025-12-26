@@ -50,23 +50,21 @@ export default function Calendar() {
 
                     const isChristmas = day === 25;
                     const isToday = isDecember && day === today;
-
-                    // Format date for URL: YYYY-MM-DD
-                    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    const isNewYearsEve = day === 31;
 
                     return (
                         <div
-                            onClick={() => window.location.href = `/calendar/${dateStr}`}
                             key={day}
                             className={`
-                aspect-square flex items-center justify-center rounded-full transition-all relative z-50 cursor-pointer pointer-events-auto
+                aspect-square flex items-center justify-center rounded-full transition-all relative z-50
                 ${isChristmas ? 'bg-green-700 text-white font-bold shadow-lg scale-110 border-2 border-red-500' : ''}
                 ${isToday && !isChristmas ? 'bg-white text-red-900 font-bold' : ''}
-                ${!isChristmas && !isToday ? 'hover:bg-white/20' : ''}
+                ${isNewYearsEve ? 'bg-yellow-500/20 ring-2 ring-yellow-400' : ''}
               `}
                         >
                             {day}
                             {isChristmas && <span className="absolute -top-1 -right-1 text-xs">🎄</span>}
+                            {isNewYearsEve && <span className="absolute -top-1 -right-1 text-xs">⭐</span>}
                         </div>
                     );
                 })}

@@ -56,28 +56,53 @@ export default function Home() {
         />
       ))}
 
-      <main className="flex flex-col items-center text-center gap-6 animate-in fade-in zoom-in duration-1000 z-10">
+      <main className="flex flex-col items-center text-center gap-12 animate-in fade-in zoom-in duration-1000 z-10 w-full max-w-6xl px-4">
         <div className="relative">
-          <h1 className="text-5xl md:text-7xl font-dancing-script font-bold tracking-normal text-[#f0f0f0] drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+          <h1 className="text-3xl md:text-4xl font-playfair font-light tracking-[0.2em] text-[#f0f0f0] opacity-90 uppercase">
             Happy new year!
           </h1>
         </div>
 
-        <pre className="text-green-600 font-mono text-sm md:text-base leading-tight select-none">
-          {`        ★
-       /\\
-      /  \\
-     /o   \\
-    /  o   \\
-   /    o   \\
-  /o    o  o \\
- /   o    o   \\
-/______________\\
-      ||||
-      ||||`}
-        </pre>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 w-full">
+          {/* 1. Tree (Left) */}
+          <div className="relative group flex flex-col items-center">
+            <pre className="text-green-600 font-mono text-xs md:text-sm leading-tight select-none relative">
+              {`      .   +   .  ★  .   +   .
+        .    /\\    .
+     +      /  \\      +
+       .   /o   \\   .
+     +    /  o   \\    +
+       . /    o   \\ .
+     +  /o    o  o \\  +
+       /   o    o   \\
+      /______________\\
+            ||||
+            ||||`}
+            </pre>
+            {/* Sparkles around tree */}
+            <div className="absolute inset-0 pointer-events-none text-green-400 opacity-60">
+              <span className="absolute top-0 left-0 animate-pulse text-[10px]">+</span>
+              <span className="absolute top-10 right-0 animate-bounce text-[10px]">*</span>
+              <span className="absolute bottom-10 left-4 animate-pulse text-[10px]">.</span>
+              <span className="absolute top-1/2 -right-4 animate-bounce text-[10px]">+</span>
+            </div>
+          </div>
 
-        <Calendar />
+          {/* 2. Calendar (Center) */}
+          <div className="flex-shrink-0">
+            <Calendar />
+          </div>
+
+          {/* 3. Invitation (Right) */}
+          <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-2 max-w-[200px]">
+            <h2 className="text-xl md:text-2xl font-playfair font-light tracking-wide text-white/90 drop-shadow-md leading-relaxed">
+              새해 파티에<br />초대합니다! ✨
+            </h2>
+            <p className="text-white/40 font-serif text-[11px] tracking-tight uppercase">
+              Join us in celebration
+            </p>
+          </div>
+        </div>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-4">
           <Link
