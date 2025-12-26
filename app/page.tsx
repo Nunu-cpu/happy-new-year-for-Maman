@@ -1,63 +1,99 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  // Use state to ensure snowflakes are only rendered on the client to avoid hydration mismatch
+  const [snowflakes, setSnowflakes] = useState<Array<{ id: number; left: string; animationDuration: string; animationDelay: string; size: string }>>([]);
+
+  useEffect(() => {
+    // Generate snowflakes only on client to match hydration
+    const flakes = Array.from({ length: 50 }).map((_, i) => ({
+      id: i,
+      left: `${Math.random() * 100}vw`,
+      animationDuration: `${Math.random() * 3 + 2}s`,
+      animationDelay: `${Math.random() * 5}s`,
+      size: `${Math.random() * 8 + 4}px`,
+    }));
+    setSnowflakes(flakes);
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div
+      className="flex min-h-screen flex-col items-center justify-center p-4 overflow-hidden relative"
+      style={{ background: 'linear-gradient(135deg, #c73e1d 0%, #d4a373 50%, #e8c4a0 100%)' }}
+    >
+      <style jsx global>{`
+        @keyframes fall {
+          0% {
+            transform: translateY(-10vh) translateX(0);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(110vh) translateX(20px);
+            opacity: 0.3;
+          }
+        }
+      `}</style>
+
+      {/* Snowflakes */}
+      {snowflakes.map((flake) => (
+        <div
+          key={flake.id}
+          className="absolute bg-white rounded-full pointer-events-none opacity-90 shadow-sm"
+          style={{
+            left: flake.left,
+            top: '-20px',
+            width: flake.size,
+            height: flake.size,
+            animation: `fall ${flake.animationDuration} linear infinite`,
+            animationDelay: flake.animationDelay,
+            zIndex: 50,
+            filter: 'blur(0.5px)',
+          }}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+      ))}
+
+      <main className="flex flex-col items-center text-center gap-6 animate-in fade-in zoom-in duration-1000 z-10">
+        <div className="relative">
+          <h1 className="text-4xl md:text-5xl font-serif font-medium tracking-widest text-[#f0f0f0] drop-shadow-md">
+            메리 크리스마스
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <p className="text-lg md:text-xl font-light text-white/90 tracking-wide font-serif">
+          선물은 카봇! 🎄
+        </p>
+
+        <pre className="text-green-600 font-mono text-sm md:text-base leading-tight select-none">
+          {`        ★
+       /\\
+      /  \\
+     /o   \\
+    /  o   \\
+   /    o   \\
+  /o    o  o \\
+ /   o    o   \\
+/______________\\
+      ||||
+      ||||`}
+        </pre>
+
+        <Link
+          href="/calendar"
+          className="mt-4 px-8 py-3 rounded-full bg-green-800 hover:bg-green-700 text-white font-serif border border-white/20 shadow-lg transition-all hover:scale-105 active:scale-95"
+        >
+          📅 달력 보기
+        </Link>
+
+        {/* Static decorations */}
+        <div className="flex gap-4 text-4xl mt-8">
+          <span className="animate-bounce delay-100 drop-shadow-sm">❄️</span>
+          <span className="animate-bounce delay-300 drop-shadow-sm">🎅</span>
+          <span className="animate-bounce delay-700 drop-shadow-sm">❄️</span>
+          <span className="animate-bounce delay-500 drop-shadow-sm">❄️</span>
         </div>
       </main>
     </div>
