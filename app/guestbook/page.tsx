@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "react-router-dom"; // Note: Using standard Link for internal navigation or next/link if available
 import LinkNext from "next/link";
+import { supabase } from "@/lib/supabase";
 
 interface Message {
     id: string;
     name: string;
     content: string;
-    timestamp: string;
+    created_at: string;
 }
 
 export default function Guestbook() {
@@ -18,11 +18,7 @@ export default function Guestbook() {
     const [snowflakes, setSnowflakes] = useState<Array<{ id: number; left: string; animationDuration: string; animationDelay: string; size: string }>>([]);
 
     useEffect(() => {
-        // Load messages
-        const saved = localStorage.getItem("guestbook_messages");
-        if (saved) {
-            setMessages(JSON.parse(saved));
-        }
+        fetchMessages();
 
         // Snowflakes for consistency
         const flakes = Array.from({ length: 40 }).map((_, i) => ({
@@ -35,22 +31,35 @@ export default function Guestbook() {
         setSnowflakes(flakes);
     }, []);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const fetchMessages = async () => {
+        const { data, error } = await supabase
+            .from('guestbook')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            console.error('Error fetching messages:', error);
+        } else {
+            setMessages(data || []);
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!name.trim() || !content.trim()) return;
 
-        const newMessage: Message = {
-            id: Date.now().toString(),
-            name,
-            content,
-            timestamp: new Date().toLocaleString("ko-KR"),
-        };
+        const { error } = await supabase
+            .from('guestbook')
+            .insert([{ name, content }]);
 
-        const updated = [newMessage, ...messages];
-        setMessages(updated);
-        localStorage.setItem("guestbook_messages", JSON.stringify(updated));
-        setName("");
-        setContent("");
+        if (error) {
+            console.error('Error posting message:', error);
+            alert('메시지 게시에 실패했습니다.');
+        } else {
+            setName("");
+            setContent("");
+            fetchMessages();
+        }
     };
 
     return (
@@ -140,7 +149,14 @@ export default function Guestbook() {
                             >
                                 <div className="flex justify-between items-start mb-2">
                                     <span className="font-serif font-bold text-green-300 text-lg">{m.name}</span>
-                                    <span className="text-[10px] text-white/40">{m.timestamp}</span>
+                                    <span className="text-[10px] text-white/40">
+                                        {new Date(m.created_at).toLocaleString("ko-KR", {
+                                            month: 'short',
+                                            day: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        })}
+                                    </span>
                                 </div>
                                 <p className="text-white/90 leading-relaxed font-light">{m.content}</p>
                             </div>
