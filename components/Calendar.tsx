@@ -13,8 +13,9 @@ export default function Calendar() {
     // Let's use December 2025 (or current year) to match the theme.
     const targetDate = new Date();
     const isDecember = targetDate.getMonth() === 11;
-    const year = targetDate.getFullYear();
-    const month = 11; // December (0-indexed)
+    // Set specifically to January 2026
+    const year = 2026;
+    const month = 0; // January (0-indexed)
 
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const firstDayOfMonth = new Date(year, month, 1).getDay();
@@ -28,7 +29,8 @@ export default function Calendar() {
         days.push(i);
     }
 
-    const today = targetDate.getDate();
+    const today = new Date().getDate();
+    const isCurrentMonth = new Date().getMonth() === month && new Date().getFullYear() === year;
 
     return (
         <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-6 w-full max-w-sm border border-white/20 shadow-xl text-white mt-8">
@@ -48,23 +50,20 @@ export default function Calendar() {
                 {days.map((day, index) => {
                     if (!day) return <div key={`empty-${index}`} />;
 
-                    const isChristmas = day === 25;
-                    const isToday = isDecember && day === today;
-                    const isNewYearsEve = day === 31;
+                    const isNewYearsDay = day === 1;
+                    const isToday = isCurrentMonth && day === today;
 
                     return (
                         <div
                             key={day}
                             className={`
                 aspect-square flex items-center justify-center rounded-full transition-all relative z-50
-                ${isChristmas ? 'bg-green-700 text-white font-bold shadow-lg scale-110 border-2 border-red-500' : ''}
-                ${isToday && !isChristmas ? 'bg-white text-red-900 font-bold' : ''}
-                ${isNewYearsEve ? 'bg-yellow-500/20 ring-2 ring-yellow-400' : ''}
+                ${isNewYearsDay ? 'bg-amber-400 text-slate-900 font-bold shadow-lg scale-110 border-2 border-white/50' : ''}
+                ${isToday && !isNewYearsDay ? 'bg-white text-slate-900 font-bold' : ''}
               `}
                         >
                             {day}
-                            {isChristmas && <span className="absolute -top-1 -right-1 text-xs">🎄</span>}
-                            {isNewYearsEve && <span className="absolute -top-1 -right-1 text-xs">⭐</span>}
+                            {isNewYearsDay && <span className="absolute -top-1 -right-1 text-xs">✨</span>}
                         </div>
                     );
                 })}
