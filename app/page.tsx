@@ -139,10 +139,10 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 w-full">
-          {/* 1. Snowy Winter Forest (Left) */}
+          {/* 1. Snowy Winter Forest (Left) - Blended */}
           <div className="relative group flex flex-col items-center">
-            <div className="relative bg-white/5 p-6 rounded-2xl backdrop-blur-[2px] shadow-sm border border-white/10">
-              <pre className="text-emerald-800/80 font-mono text-[9px] md:text-[11px] leading-tight select-none relative">
+            <div className="relative p-2">
+              <pre className="text-emerald-800/80 font-mono text-[9px] md:text-[11px] leading-tight select-none relative drop-shadow-sm">
                 {`      *   .      .   *
     .   /\\   *     /\\  .
   *    /  \\   .   /  \\   *
