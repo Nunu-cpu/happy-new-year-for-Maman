@@ -2,26 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Calendar from "@/components/Calendar";
-
-import { supabase } from "@/lib/supabase";
 
 export default function Home() {
-  const [snowflakes, setSnowflakes] = useState<Array<{ id: number; left: string; animationDuration: string; animationDelay: string; size: string }>>([]);
   const [clouds, setClouds] = useState<Array<{ id: number; left: string; top: string; scale: number; duration: string; delay: string }>>([]);
-  const [recentWishes, setRecentWishes] = useState<any[]>([]);
 
   useEffect(() => {
-    // Generate flakes & clouds...
-    const flakes = Array.from({ length: 50 }).map((_, i) => ({
-      id: i,
-      left: `${Math.random() * 100}vw`,
-      animationDuration: `${Math.random() * 3 + 2}s`,
-      animationDelay: `${Math.random() * 5}s`,
-      size: `${Math.random() * 8 + 4}px`,
-    }));
-    setSnowflakes(flakes);
-
     const cloudElements = Array.from({ length: 6 }).map((_, i) => ({
       id: i,
       left: `${Math.random() * 100}vw`,
@@ -31,17 +16,6 @@ export default function Home() {
       delay: `${Math.random() * -20}s`,
     }));
     setClouds(cloudElements);
-
-    // Fetch recent wishes
-    const fetchRecentWishes = async () => {
-      const { data } = await supabase
-        .from('guestbook')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(3);
-      if (data) setRecentWishes(data);
-    };
-    fetchRecentWishes();
   }, []);
 
   return (
@@ -52,10 +26,6 @@ export default function Home() {
       }}
     >
       <style jsx global>{`
-        @keyframes fall {
-          0% { transform: translateY(-10vh) translateX(0); opacity: 1; }
-          100% { transform: translateY(110vh) translateX(20px); opacity: 0.3; }
-        }
         @keyframes float {
           0% { transform: translateX(-100vw); }
           100% { transform: translateX(100vw); }
@@ -80,105 +50,64 @@ export default function Home() {
           30% { transform: translate(5%, -10%); }
           40% { transform: translate(-5%, 15%); }
           50% { transform: translate(-10%, 5%); }
-          60% { transform: translate(15%, 0); }
-          70% { transform: translate(0, 10%); }
-          80% { transform: translate(-15%, 0); }
-          90% { transform: translate(10%, 5%); }
-          100% { transform: translate(5%, 0); }
         }
       `}</style>
 
-      {/* Noise Overlay */}
-      <div className="absolute inset-0 grain pointer-events-none z-[60]" />
+      <div className="grain" />
 
-      {/* Vignette */}
-      <div className="absolute inset-0 pointer-events-none z-[61] shadow-[inset_0_0_150px_rgba(0,0,0,0.05)]" />
-
-      {/* Floating Clouds */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        {clouds.map((cloud) => (
-          <div
-            key={cloud.id}
-            className="absolute bg-white/40 blur-3xl rounded-full"
-            style={{
-              left: cloud.left,
-              top: cloud.top,
-              width: `${200 * cloud.scale}px`,
-              height: `${100 * cloud.scale}px`,
-              animation: `float ${cloud.duration} linear infinite`,
-              animationDelay: cloud.delay,
-              opacity: 0.6,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Snowflakes */}
-      {snowflakes.map((flake) => (
+      {/* Clouds */}
+      {clouds.map((cloud) => (
         <div
-          key={flake.id}
-          className="absolute bg-white rounded-full pointer-events-none opacity-70 shadow-sm"
+          key={cloud.id}
+          className="absolute text-white/40 pointer-events-none select-none"
           style={{
-            left: flake.left,
-            top: '-20px',
-            width: flake.size,
-            height: flake.size,
-            animation: `fall ${flake.animationDuration} linear infinite`,
-            animationDelay: flake.animationDelay,
-            zIndex: 50,
-            filter: 'blur(0.5px)',
+            left: cloud.left,
+            top: cloud.top,
+            transform: `scale(${cloud.scale})`,
+            animation: `float ${cloud.duration} linear infinite`,
+            animationDelay: cloud.delay,
+            zIndex: 1,
+            fontSize: '40px'
           }}
-        />
+        >
+          ☁️
+        </div>
       ))}
 
-      <main className="flex flex-col items-center text-center gap-12 animate-in fade-in zoom-in duration-1000 z-10 w-full max-w-6xl px-4 py-12">
-        <div className="relative">
-          <h1 className="text-3xl md:text-4xl font-playfair font-light tracking-[0.2em] text-white drop-shadow-md uppercase">
-            Happy new year!
+      <main className="flex flex-col items-center text-center gap-16 animate-in fade-in zoom-in duration-1000 z-10 w-full max-w-4xl px-4">
+        <div className="space-y-4">
+          <h1 className="text-6xl md:text-8xl font-playfair font-light tracking-tight text-white drop-shadow-md">
+            Portfolio
           </h1>
+          <p className="text-slate-600 font-serif italic text-lg md:text-xl opacity-80">
+            Creative Developer & Designer
+          </p>
         </div>
 
-        <div className="flex flex-col items-center justify-center w-full">
-          {/* 1. Calendar */}
-          <div className="flex-shrink-0">
-            <Calendar />
-          </div>
-        </div>
-
-        <div className="flex flex-col items-center gap-8 w-full">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              href="/guestbook"
-              className="px-8 py-3 rounded-full bg-slate-800/10 hover:bg-slate-800/20 text-slate-700 font-serif border border-slate-900/10 shadow-sm transition-all hover:scale-105 active:scale-95 text-center backdrop-blur-sm"
+        <nav className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-2xl">
+          {[
+            { label: 'About', sub: 'The Story', icon: '👤', color: 'bg-white/10' },
+            { label: 'Projects', sub: 'The Work', icon: '🚀', color: 'bg-white/15' },
+            { label: 'Experience', sub: 'The Journey', icon: '💼', color: 'bg-white/10' },
+            { label: 'Contact', sub: 'The Link', icon: '✉️', color: 'bg-white/5' }
+          ].map((item) => (
+            <button
+              key={item.label}
+              className={`group relative flex flex-col items-center justify-center p-10 ${item.color} backdrop-blur-lg rounded-[2.5rem] border border-white/30 shadow-2xl transition-all hover:bg-white/30 hover:scale-105 active:scale-95 text-slate-800`}
             >
-              🖋️ 방명록 작성하기
-            </Link>
-          </div>
+              <span className="text-4xl mb-4 transform group-hover:scale-110 transition-transform">{item.icon}</span>
+              <span className="text-2xl font-playfair font-bold tracking-wide group-hover:text-slate-900">{item.label}</span>
+              <span className="text-[10px] font-serif uppercase tracking-[0.2em] text-slate-500 mt-2 opacity-60 group-hover:opacity-100 transition-opacity">{item.sub}</span>
+            </button>
+          ))}
+        </nav>
 
-          {/* Recent Wishes Preview */}
-          {recentWishes.length > 0 && (
-            <div className="w-full max-w-lg mt-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-              <h3 className="text-slate-500 font-serif italic text-sm mb-4 uppercase tracking-[0.2em]">Recent Wishes</h3>
-              <div className="flex flex-wrap justify-center gap-4">
-                {recentWishes.map((wish) => (
-                  <div key={wish.id} className="bg-white/60 backdrop-blur-sm p-4 rounded shadow-sm border border-white/50 transform -rotate-1 hover:rotate-0 transition-transform max-w-[150px]">
-                    <p className="text-[10px] font-dancing-script font-bold text-slate-700 mb-1 border-b border-slate-200 pb-1">{wish.name}</p>
-                    <p className="text-[11px] font-serif text-slate-600 line-clamp-2">"{wish.content}"</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="flex gap-4 text-4xl mt-4">
-          <span className="animate-bounce delay-100 drop-shadow-sm opacity-60">❄️</span>
-          <span className="animate-bounce delay-300 drop-shadow-sm opacity-60">☁️</span>
-          <span className="animate-bounce delay-700 drop-shadow-sm opacity-60">❄️</span>
-          <span className="animate-bounce delay-500 drop-shadow-sm opacity-60">☁️</span>
+        <div className="pt-8">
+          <p className="text-slate-400 font-serif text-[10px] tracking-[0.3em] uppercase opacity-50">
+            © 2026 Crafted with Excellence
+          </p>
         </div>
       </main>
     </div>
   );
 }
-// Final sync commit for Vercel update
