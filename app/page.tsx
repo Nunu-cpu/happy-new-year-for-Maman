@@ -138,20 +138,10 @@ export default function Home() {
           </h1>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 w-full">
+        <div className="flex flex-col items-center justify-center w-full">
           {/* 1. Calendar */}
           <div className="flex-shrink-0">
             <Calendar />
-          </div>
-
-          {/* 2. Invitation */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-2 max-w-[200px]">
-            <h2 className="text-xl md:text-2xl font-playfair font-light tracking-wide text-slate-800 drop-shadow-sm leading-relaxed">
-              데구르르<br />데구르르 🐾
-            </h2>
-            <p className="text-slate-400 font-serif text-[11px] tracking-tight uppercase">
-              Rolling through the new year
-            </p>
           </div>
         </div>
 
