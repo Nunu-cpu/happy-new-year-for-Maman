@@ -138,38 +138,13 @@ export default function Home() {
           </h1>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 w-full">
-          {/* 1. Snowy Winter Forest (Left) - Blended */}
-          <div className="relative group flex flex-col items-center">
-            <div className="relative p-2">
-              <pre className="text-emerald-800/80 font-mono text-[9px] md:text-[11px] leading-tight select-none relative drop-shadow-sm">
-                {`      *  /\\  .      .
-    .   /  \\   *        /\\   *
-  *    /____\\   .      /  \\  .
-    .    ||     .      /____\\    *
- *          .      *     ||      .
-   .         .       *        *
-       *          .      .
-      .             *
-   *                  *`}
-              </pre>
-            </div>
-
-            {/* Animated Snow around forest */}
-            <div className="absolute inset-0 pointer-events-none text-white opacity-40">
-              <span className="absolute top-0 left-2 animate-pulse text-[8px]">*</span>
-              <span className="absolute top-4 right-10 animate-bounce text-[7px]">*</span>
-              <span className="absolute top-10 right-2 animate-pulse text-[10px]">*</span>
-              <span className="absolute bottom-10 left-4 animate-bounce text-[8px]">*</span>
-            </div>
-          </div>
-
-          {/* 2. Calendar (Center) */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 w-full">
+          {/* 1. Calendar */}
           <div className="flex-shrink-0">
             <Calendar />
           </div>
 
-          {/* 3. Invitation (Right) */}
+          {/* 2. Invitation */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-2 max-w-[200px]">
             <h2 className="text-xl md:text-2xl font-playfair font-light tracking-wide text-slate-800 drop-shadow-sm leading-relaxed">
               새해 파티에<br />초대합니다! ✨
