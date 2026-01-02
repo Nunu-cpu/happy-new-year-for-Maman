@@ -74,14 +74,11 @@ export default function Home() {
         </div>
       ))}
 
-      <main className="flex flex-col items-center text-center gap-16 animate-in fade-in zoom-in duration-1000 z-10 w-full max-w-4xl px-4">
+      <main className="flex flex-col items-center text-center gap-20 animate-in fade-in zoom-in duration-1000 z-10 w-full max-w-4xl px-4">
         <div className="space-y-4">
-          <h1 className="text-6xl md:text-8xl font-playfair font-light tracking-tight text-white drop-shadow-md">
+          <h1 className="text-3xl md:text-5xl font-playfair font-light tracking-[0.2em] text-white drop-shadow-md uppercase">
             Portfolio
           </h1>
-          <p className="text-slate-600 font-serif italic text-lg md:text-xl opacity-80">
-            Creative Developer & Designer
-          </p>
         </div>
 
         <nav className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-2xl">
