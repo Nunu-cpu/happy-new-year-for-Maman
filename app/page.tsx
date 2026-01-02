@@ -139,26 +139,25 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 w-full">
-          {/* 1. Tree (Left) */}
+          {/* 1. Cabin (Left) */}
           <div className="relative group flex flex-col items-center">
-            <pre className="text-green-600 font-mono text-xs md:text-sm leading-tight select-none relative">
-              {`      .   +   .  ★  .   +   .
-        .    /\\    .
-     +      /  \\      +
-       .   /o   \\   .
-     +    /  o   \\    +
-       . /    o   \\ .
-     +  /o    o  o \\  +
-       /   o    o   \\
-      /______________\\
-            ||||
-            ||||`}
+            <pre className="text-slate-600 font-mono text-[10px] md:text-xs leading-tight select-none relative bg-white/5 p-4 rounded-lg backdrop-blur-[2px]">
+              {`      *   *        *
+  *      _||_         *
+    ____/    \\____
+   /              \\   *
+  /________________\\
+   |  _    _    _  |
+ * | [ ]  | |  [ ] |
+   |______| |______| 
+  ~~~~~~~~~~~~~~~~~~~`}
             </pre>
-            <div className="absolute inset-0 pointer-events-none text-green-400 opacity-60">
-              <span className="absolute top-0 left-0 animate-pulse text-[10px]">+</span>
-              <span className="absolute top-10 right-0 animate-bounce text-[10px]">*</span>
-              <span className="absolute bottom-10 left-4 animate-pulse text-[10px]">.</span>
-              <span className="absolute top-1/2 -right-4 animate-bounce text-[10px]">+</span>
+            {/* Sparkles/Snow around cabin */}
+            <div className="absolute inset-0 pointer-events-none text-white opacity-40">
+              <span className="absolute top-2 left-4 animate-pulse text-[8px]">*</span>
+              <span className="absolute top-6 right-6 animate-bounce text-[8px]">*</span>
+              <span className="absolute bottom-6 left-2 animate-pulse text-[8px]">*</span>
+              <span className="absolute top-0 right-2 animate-bounce text-[8px]">*</span>
             </div>
           </div>
 
