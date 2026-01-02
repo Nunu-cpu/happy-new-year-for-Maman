@@ -133,7 +133,7 @@ export default function Home() {
 
       <main className="flex flex-col items-center text-center gap-12 animate-in fade-in zoom-in duration-1000 z-10 w-full max-w-6xl px-4 py-12">
         <div className="relative">
-          <h1 className="text-3xl md:text-4xl font-playfair font-light tracking-[0.2em] text-slate-700 opacity-90 uppercase">
+          <h1 className="text-3xl md:text-4xl font-playfair font-light tracking-[0.2em] text-white drop-shadow-md uppercase">
             Happy new year!
           </h1>
         </div>
