@@ -142,22 +142,26 @@ export default function Home() {
           {/* 1. Cabin (Left) */}
           <div className="relative group flex flex-col items-center">
             <pre className="text-slate-600 font-mono text-[10px] md:text-xs leading-tight select-none relative bg-white/5 p-4 rounded-lg backdrop-blur-[2px]">
-              {`      *   *        *
-  *      _||_         *
-    ____/    \\____
-   /              \\   *
-  /________________\\
-   |  _    _    _  |
- * | [ ]  | |  [ ] |
-   |______| |______| 
-  ~~~~~~~~~~~~~~~~~~~`}
+              {`   *    *      *    *
+  *      _||_   *    *
+ *  ____/    \\____  *
+   /              \\    *
+  /________________\\  *
+ * |  _    _    _  | *
+   | [ ]  | |  [ ] |  *
+ * |______| |______| *
+  ~~~~~~~~~~~~~~~~~~~
+  *  .  *  .  *  .  *`}
             </pre>
             {/* Sparkles/Snow around cabin */}
-            <div className="absolute inset-0 pointer-events-none text-white opacity-40">
+            <div className="absolute inset-0 pointer-events-none text-white opacity-50">
               <span className="absolute top-2 left-4 animate-pulse text-[8px]">*</span>
               <span className="absolute top-6 right-6 animate-bounce text-[8px]">*</span>
               <span className="absolute bottom-6 left-2 animate-pulse text-[8px]">*</span>
-              <span className="absolute top-0 right-2 animate-bounce text-[8px]">*</span>
+              <span className="absolute top-0 right-10 animate-pulse text-[8px]">*</span>
+              <span className="absolute bottom-10 right-4 animate-bounce text-[8px]">*</span>
+              <span className="absolute top-1/2 left-0 animate-pulse text-[8px]">*</span>
+              <span className="absolute bottom-2 right-1/2 animate-bounce text-[8px]">*</span>
             </div>
           </div>
 
