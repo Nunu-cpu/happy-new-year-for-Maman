@@ -143,14 +143,14 @@ export default function Home() {
           <div className="relative group flex flex-col items-center">
             <div className="relative p-2">
               <pre className="text-emerald-800/80 font-mono text-[9px] md:text-[11px] leading-tight select-none relative drop-shadow-sm">
-                {`      *   .      
-    .   /\\   *     
-  *    /  \\   .   
-    . /____\\    .      .   *
- *      ||    *      /\\  .
-   .          *     /  \\   *
-       *           /____\\  .
-      .              ||     *
+                {`      *   .               .
+    .   /\\   *          /\\  *
+  *    /  \\   .        /  \\   .
+    . /____\\    .     /____\\    *
+ *      ||      *        ||      .
+   .         .       *        *
+       *          .      .
+      .             *
    *                  *`}
               </pre>
             </div>
