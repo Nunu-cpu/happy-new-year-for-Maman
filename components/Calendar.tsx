@@ -33,14 +33,14 @@ export default function Calendar() {
     const isCurrentMonth = new Date().getMonth() === month && new Date().getFullYear() === year;
 
     return (
-        <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-6 w-full max-w-sm border border-white/20 shadow-xl text-white mt-8">
-            <div className="flex justify-between items-center mb-4">
+        <div className="bg-white/20 backdrop-blur-sm rounded-3xl p-6 w-full max-w-sm border border-white/30 shadow-xl text-slate-900 mt-8">
+            <div className="flex justify-between items-center mb-4 text-slate-900">
                 <h2 className="text-2xl font-serif font-bold tracking-wider">
                     {monthNames[month]} {year}
                 </h2>
             </div>
 
-            <div className="grid grid-cols-7 gap-2 text-center text-sm font-medium mb-2 opacity-80">
+            <div className="grid grid-cols-7 gap-2 text-center text-sm font-bold mb-2 text-slate-600">
                 {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(day => (
                     <div key={day}>{day}</div>
                 ))}
@@ -57,9 +57,9 @@ export default function Calendar() {
                         <div
                             key={day}
                             className={`
-                aspect-square flex items-center justify-center rounded-full transition-all relative z-50
+                aspect-square flex items-center justify-center rounded-full transition-all relative z-50 font-medium
                 ${isNewYearsDay ? 'bg-amber-400 text-slate-900 font-bold shadow-lg scale-110 border-2 border-white/50' : ''}
-                ${isToday && !isNewYearsDay ? 'bg-white text-slate-900 font-bold' : ''}
+                ${isToday && !isNewYearsDay ? 'bg-slate-900 text-white font-bold' : 'text-slate-900'}
               `}
                         >
                             {day}
