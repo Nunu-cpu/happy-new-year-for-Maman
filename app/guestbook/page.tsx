@@ -139,7 +139,7 @@ export default function Guestbook() {
                         <span className="group-hover:-translate-x-1 transition-transform">←</span> BACK TO MAIN
                     </LinkNext>
                     <h1 className="text-4xl md:text-5xl font-dancing-script font-bold text-slate-800 drop-shadow-sm tracking-tight text-center w-full">
-                        New Year 1e509a13-f9b7-49eb-86f2-01344948ef84 🖋️
+                        New Year Wishes 🖋️
                     </h1>
                     <p className="text-slate-500 font-serif italic text-sm">함께 나누고 싶은 새해 인사를 남겨주세요!</p>
                 </header>

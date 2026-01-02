@@ -4,11 +4,15 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Calendar from "@/components/Calendar";
 
+import { supabase } from "@/lib/supabase";
+
 export default function Home() {
   const [snowflakes, setSnowflakes] = useState<Array<{ id: number; left: string; animationDuration: string; animationDelay: string; size: string }>>([]);
   const [clouds, setClouds] = useState<Array<{ id: number; left: string; top: string; scale: number; duration: string; delay: string }>>([]);
+  const [recentWishes, setRecentWishes] = useState<any[]>([]);
 
   useEffect(() => {
+    // Generate flakes & clouds...
     const flakes = Array.from({ length: 50 }).map((_, i) => ({
       id: i,
       left: `${Math.random() * 100}vw`,
@@ -27,6 +31,17 @@ export default function Home() {
       delay: `${Math.random() * -20}s`,
     }));
     setClouds(cloudElements);
+
+    // Fetch recent wishes
+    const fetchRecentWishes = async () => {
+      const { data } = await supabase
+        .from('guestbook')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(3);
+      if (data) setRecentWishes(data);
+    };
+    fetchRecentWishes();
   }, []);
 
   return (
@@ -116,7 +131,7 @@ export default function Home() {
         />
       ))}
 
-      <main className="flex flex-col items-center text-center gap-12 animate-in fade-in zoom-in duration-1000 z-10 w-full max-w-6xl px-4">
+      <main className="flex flex-col items-center text-center gap-12 animate-in fade-in zoom-in duration-1000 z-10 w-full max-w-6xl px-4 py-12">
         <div className="relative">
           <h1 className="text-3xl md:text-4xl font-playfair font-light tracking-[0.2em] text-slate-700 opacity-90 uppercase">
             Happy new year!
@@ -127,19 +142,18 @@ export default function Home() {
           {/* 1. Tree (Left) */}
           <div className="relative group flex flex-col items-center">
             <pre className="text-green-600 font-mono text-xs md:text-sm leading-tight select-none relative">
-              {\`      .   +   .  ★  .   +   .
-              .    /\\    .
-              +      /  \\      +
-              .   /o   \\   .
-              +    /  o   \\    +
-              . /    o   \\ .
-              +  /o    o  o \\  +
-              /   o    o   \\
-              /______________\\
-              ||||
-            ||||\`}
+              {`      .   +   .  ★  .   +   .
+        .    /\\    .
+     +      /  \\      +
+       .   /o   \\   .
+     +    /  o   \\    +
+       . /    o   \\ .
+     +  /o    o  o \\  +
+       /   o    o   \\
+      /______________\\
+            ||||
+            ||||`}
             </pre>
-            {/* Sparkles around tree */}
             <div className="absolute inset-0 pointer-events-none text-green-400 opacity-60">
               <span className="absolute top-0 left-0 animate-pulse text-[10px]">+</span>
               <span className="absolute top-10 right-0 animate-bounce text-[10px]">*</span>
@@ -164,17 +178,33 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 mt-4">
-          <Link
-            href="/guestbook"
-            className="px-8 py-3 rounded-full bg-slate-800/10 hover:bg-slate-800/20 text-slate-700 font-serif border border-slate-900/10 shadow-sm transition-all hover:scale-105 active:scale-95 text-center backdrop-blur-sm"
-          >
-            🖋️ 방명록 작성하기
-          </Link>
+        <div className="flex flex-col items-center gap-8 w-full">
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/guestbook"
+              className="px-8 py-3 rounded-full bg-slate-800/10 hover:bg-slate-800/20 text-slate-700 font-serif border border-slate-900/10 shadow-sm transition-all hover:scale-105 active:scale-95 text-center backdrop-blur-sm"
+            >
+              🖋️ 방명록 작성하기
+            </Link>
+          </div>
+
+          {/* Recent Wishes Preview */}
+          {recentWishes.length > 0 && (
+            <div className="w-full max-w-lg mt-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+              <h3 className="text-slate-500 font-serif italic text-sm mb-4 uppercase tracking-[0.2em]">Recent Wishes</h3>
+              <div className="flex flex-wrap justify-center gap-4">
+                {recentWishes.map((wish) => (
+                  <div key={wish.id} className="bg-white/60 backdrop-blur-sm p-4 rounded shadow-sm border border-white/50 transform -rotate-1 hover:rotate-0 transition-transform max-w-[150px]">
+                    <p className="text-[10px] font-dancing-script font-bold text-slate-700 mb-1 border-b border-slate-200 pb-1">{wish.name}</p>
+                    <p className="text-[11px] font-serif text-slate-600 line-clamp-2">"{wish.content}"</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Static decorations */}
-        <div className="flex gap-4 text-4xl mt-8">
+        <div className="flex gap-4 text-4xl mt-4">
           <span className="animate-bounce delay-100 drop-shadow-sm opacity-60">❄️</span>
           <span className="animate-bounce delay-300 drop-shadow-sm opacity-60">☁️</span>
           <span className="animate-bounce delay-700 drop-shadow-sm opacity-60">❄️</span>
