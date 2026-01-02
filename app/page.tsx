@@ -139,39 +139,30 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 w-full">
-          {/* 1. Pointy Brown House & Garden (Left) */}
+          {/* 1. Snowy Winter Forest (Left) */}
           <div className="relative group flex flex-col items-center">
-            <div className="relative bg-white/10 p-6 rounded-2xl backdrop-blur-[4px] shadow-sm border border-white/20">
-              <pre className="text-amber-900 font-mono text-[10px] md:text-[11px] leading-[1.1] select-none relative">
-                {`        *  .
-       / \\     *
-      /   \\  .
-     /     \\    *
-    /       \\  .
-   /_________\\
-   |   _ _   |  *
-   |  | | |  | .
-   |_________|
- _[|]_____ [|]_
- ~~~~~~~~~~~~~~~
-  *  .  *  .  *`}
+            <div className="relative bg-white/5 p-6 rounded-2xl backdrop-blur-[2px] shadow-sm border border-white/10">
+              <pre className="text-emerald-800/80 font-mono text-[9px] md:text-[11px] leading-tight select-none relative">
+                {`      *   .      .   *
+    .   /\\   *     /\\  .
+  *    /  \\   .   /  \\   *
+    . /____\\    ./____\\  .
+ *      ||    *     ||     *
+   .         /\\          .
+       *    /  \\    *
+      .    /____\\    .
+   *        ||        *
+  ~~~~~~~~~~~~~~~~~~~~~~
+   *  .  *  .  *  .  *  . `}
               </pre>
-              {/* Garden elements / Flowers (simplified ASCII) */}
-              <div className="absolute bottom-6 left-0 right-0 flex justify-around px-2 text-[8px] text-green-700/60 font-serif">
-                <span>❀</span>
-                <span>❀</span>
-                <span>❀</span>
-              </div>
             </div>
 
-            {/* Animated Snow around house */}
-            <div className="absolute inset-0 pointer-events-none text-white opacity-60">
+            {/* Animated Snow around forest */}
+            <div className="absolute inset-0 pointer-events-none text-white opacity-40">
               <span className="absolute top-0 left-2 animate-pulse text-[8px]">*</span>
-              <span className="absolute top-4 right-4 animate-bounce text-[7px]">*</span>
-              <span className="absolute bottom-12 left-4 animate-pulse text-[9px]">*</span>
-              <span className="absolute top-1/2 right-2 animate-bounce text-[7px]">*</span>
-              <span className="absolute top-0 right-1/2 animate-pulse text-[10px]">*</span>
-              <span className="absolute bottom-4 left-1/2 animate-bounce text-[8px]">*</span>
+              <span className="absolute top-4 right-10 animate-bounce text-[7px]">*</span>
+              <span className="absolute top-10 right-2 animate-pulse text-[10px]">*</span>
+              <span className="absolute bottom-10 left-4 animate-bounce text-[8px]">*</span>
             </div>
           </div>
 
