@@ -81,20 +81,19 @@ export default function Home() {
           </h1>
         </div>
 
-        <nav className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-2xl">
+        <nav className="flex flex-wrap justify-center gap-4 w-full px-4">
           {[
-            { label: 'About', sub: 'The Story', icon: '👤', color: 'bg-white/10' },
-            { label: 'Projects', sub: 'The Work', icon: '🚀', color: 'bg-white/15' },
-            { label: 'Experience', sub: 'The Journey', icon: '💼', color: 'bg-white/10' },
-            { label: 'Contact', sub: 'The Link', icon: '✉️', color: 'bg-white/5' }
+            { label: 'About', icon: '👤' },
+            { label: 'Projects', icon: '🚀' },
+            { label: 'Experience', icon: '💼' },
+            { label: 'Contact', icon: '✉️' }
           ].map((item) => (
             <button
               key={item.label}
-              className={`group relative flex flex-col items-center justify-center p-10 ${item.color} backdrop-blur-lg rounded-[2.5rem] border border-white/30 shadow-2xl transition-all hover:bg-white/30 hover:scale-105 active:scale-95 text-slate-800`}
+              className="group relative flex items-center gap-2 px-6 py-2.5 bg-white/10 backdrop-blur-md rounded-full border border-white/30 shadow-sm transition-all hover:bg-white/30 hover:scale-105 active:scale-95 text-slate-800"
             >
-              <span className="text-4xl mb-4 transform group-hover:scale-110 transition-transform">{item.icon}</span>
-              <span className="text-2xl font-playfair font-bold tracking-wide group-hover:text-slate-900">{item.label}</span>
-              <span className="text-[10px] font-serif uppercase tracking-[0.2em] text-slate-500 mt-2 opacity-60 group-hover:opacity-100 transition-opacity">{item.sub}</span>
+              <span className="text-sm group-hover:scale-110 transition-transform">{item.icon}</span>
+              <span className="text-sm font-playfair font-medium tracking-wider group-hover:text-slate-900">{item.label}</span>
             </button>
           ))}
         </nav>
